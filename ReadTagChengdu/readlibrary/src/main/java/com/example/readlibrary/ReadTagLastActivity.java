@@ -143,7 +143,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
     //******************数据返回值******************
 
     @Override
-    public void onReaderStateChanged(ATRfidReader atRfidReader,  ConnectionState connectionState) {
+    public void onReaderStateChanged(ATRfidReader atRfidReader, ConnectionState connectionState) {
 
     }
 
@@ -172,7 +172,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 读取到标签之后的声音，如果想改变声音
-     * <p/>
+     * <p>
      * 1. 将声音的资源文件放到raw中，将原来的资源文件覆盖即可。
      */
     private void beepSuccess() {
@@ -183,11 +183,11 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 采用默认的设置读取标签
-     * <p/>
+     * <p>
      * 该方法不再对外提供，用户只需要
-     * <p/>
+     * <p>
      * 1.默认超时时间800ms
-     * <p/>
+     * <p>
      * 2.默认的失败重读次数3次
      *
      * @return
@@ -201,14 +201,24 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
 
     public void readTid(ReadTagDataListenser listenser) {
+        readTid(6, listenser);
+    }
+
+    /**
+     * 读取标签Tid
+     *
+     * @param length    读取标签的长度
+     * @param listenser
+     */
+    public void readTid(int length, ReadTagDataListenser listenser) {
+        READLENTH = length;
         this.readTagistenser = listenser;
         readTid();
     }
 
-
     /**
      * 读取epc
-     * <p/>
+     * <p>
      * 该方法被废弃
      *
      * @return
@@ -220,16 +230,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
         return excuteReader();
     }
 
-    /**
-     * 读取epc数据
-     *
-     * @param listenser
-     */
-    public void readEpc(ReadTagDataListenser listenser) {
-        isRead = true;
-        this.readTagistenser = listenser;
-        readEpc();
-    }
+
 
     /**
      * 读取用户数据区，默认读取24位，从0开始
@@ -281,10 +282,22 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
         return excuteReader();
     }
 
+    /**
+     * 读取epc数据
+     *
+     * @param listenser
+     */
+    public void readEpc(ReadTagDataListenser listenser) {
+        isRead = true;
+        this.readTagistenser = listenser;
+        readEpc();
+    }
+
     public void readEpc(String pwd, ReadTagDataListenser listenser) {
         this.readTagistenser = listenser;
         readEpc(pwd);
     }
+
 
 
     /**
@@ -324,6 +337,8 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
         writeEpc(1, data, "", listenser);
     }
 
+
+
     /**
      * 写入user数据
      *
@@ -362,7 +377,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 设置访问密码
-     * <p/>
+     * <p>
      * 该功能用处的详细信息请参考功能说明文档。
      *
      * @param pwd
@@ -416,7 +431,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
         boolean[] reasult = new boolean[5];
         for (int i = 0; i < 5; i++) {
             if (checkHasData(datas, i)) {
-                showLog("tag*******锁定标签的参数所在位置******"+ i);
+                showLog("tag*******锁定标签的参数所在位置******" + i);
 
                 reasult[i] = true;
             } else {
@@ -444,7 +459,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
         boolean[] reasult = new boolean[5];
         for (int i = 0; i < 5; i++) {
             if (checkHasData(datas, i)) {
-                showLog("tag*******锁定标签的参数所在位置******"+ i);
+                showLog("tag*******锁定标签的参数所在位置******" + i);
                 reasult[i] = true;
             } else {
                 reasult[i] = false;
@@ -474,7 +489,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 设置失败重读次数
-     * <p/>
+     * <p>
      * 该功能主要针对带密码读取epc的
      *
      * @param times 失败重读次数
@@ -485,7 +500,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 设置读取标签的超时时间
-     * <p/>
+     * <p>
      * 在标签读取的过程中，如果读不到标签，读写器会一直工作，设置超时间提示用户更换标签或者距离标签近一些等操作
      *
      * @param time 超时时间，默认时间未1000ms，单位为ms
@@ -618,7 +633,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 对返回的数据结果进行处理
-     * <p/>
+     * <p>
      * 1.读取tid时候，位数的判断
      * 2.判断返回结果是否为空
      *
@@ -746,7 +761,7 @@ public class ReadTagLastActivity extends BaseActivity implements RfidReaderEvent
 
     /**
      * 处理设置访问密码的数据结果
-     * <p/>
+     * <p>
      * 现在还没有对一些错误结果进行二次处理，有的还需要进行二次处理一下。
      *
      * @param resultCode
