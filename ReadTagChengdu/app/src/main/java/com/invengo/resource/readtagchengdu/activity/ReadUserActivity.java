@@ -46,6 +46,7 @@ public class ReadUserActivity extends ReadTagLastActivity {
                     tv_reasult.setText(msg);
                 }
             });
+
         }else{
 
             Toast.makeText(this,"请输入需要读取的位数",Toast.LENGTH_SHORT).show();

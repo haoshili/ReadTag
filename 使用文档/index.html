@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>远望谷XC1003手机读写文档说明</title>
+	</head>
+<body>
+<h2>远望谷XC1003手机读写文档说明</h2>
+
+<p>该文档是针对客户使用的文档，如果有什么疑惑、问题，请联系相关技术人员。</p>
+
+<h3>读取标签TID</h3>
+
+<p>读取标签的Tid区域，直接调用<code>public void readTid(ReadTagDataListenser listenser)</code>或者<code>public void readTid(int length, ReadTagDataListenser listenser)</code>其中<code>ReadTagDataListenser</code>表示结果的回调，<code>length</code>表示读取Tid区域的长度。</p>
+
+<blockquote>
+<p>备注：标签的Tid区域有96位和128为之分。在程序中体现为长度是24和32个十六进制数。而在程序的底层，又将每4个十六进制数分为1组。所以如果想要读取一个Tid为128位标签的所有Tid数据，那么需要调用<code>eadTid(8,   listenser)</code>来读取所有的Tid数据。</p>
+</blockquote>
+
+<p>以下是读取一枚Tid长度为96标签的Tid例子：</p>
+
+<pre><code>readTid(new ReadTagLastActivity.ReadTagDataListenser() {
+            @Override
+            public void onSuccess(String data) {
+                //读取标签成功，请将标签数据
+                tv_reasult.setText(data);
+            }
+
+            @Override
+            public void onFailed(String msg, int errorCode) {
+                tv_reasult.setText(msg+&quot;***code***&quot;+errorCode);
+            }
+        });
+</code></pre>
+
+<h3>读取标签Epc</h3>
+
+<p>读取标签的eps区域使用<code>readEpc(String pwd, ReadTagDataListenser listenser) </code>这个方法即可，第一个参数代表访问密码，第二个参数为读取标签的回调。</p>
+
+<blockquote>
+<p>一个标签如果设置了访问密码，那么在调用该方法的时候，如果传入了错误密码是不可以读取到数据的。但是！如果传入正确的密码或者传入<em><strong>空的密码</strong></em>都可以读取到标签的。就是给第一个参数传入一个为空的字符串是什么时候都可以读取到标签的。</p>
+</blockquote>
+
+<p>以下是读取epc的例子</p>
+
+<pre><code> readEpc(et_count.getText().toString().trim(), new ReadTagDataListenser() {
+
+            @Override
+            public void onSuccess(String data) {
+                tv_reasult.setText(data);
+            }
+
+            @Override
+            public void onFailed(String msg, int errorCode) {
+                tv_reasult.setText(msg+&quot;*****code***&quot;+errorCode);
+            }
+        });
+</code></pre>
+
+<h3>读取User区域</h3>
+
+<p>读取标签的user区域，调用<code>readUser(int readLength, ReadTagDataListenser listenser) </code>该方法的第一个参数和<code>readTid</code>中的<code>length</code>使用方法一样，第二个参数为读取标签的回调。</p>
+
+<blockquote>
+<p>读取user区域不进行赘述，需要强调一点，在某些便签中，是没有user区域的，如果发生读取不到的情况，请确保该标签含有user区域。</p>
+</blockquote>
+
+<p>一下为读取user区域的例子：</p>
+
+<pre><code>readUser(count, new ReadTagLastActivity.ReadTagDataListenser() {
+                @Override
+                public void onSuccess(String data) {
+                    tv_reasult.setText(data);
+                }
+
+                @Override
+                public void onFailed(String msg, int errorCode) {
+                    tv_reasult.setText(msg);
+                }
+            });
+</code></pre>
+
+<h3>写入数据到Epc</h3>
+
+<p>写入数据到epc，调用<code>writeEpc(int offset, String data, String pwd, WriteTagDataListenser listenser)</code>，第一个参数为跳过的数据，第二个参数为写入的数据，第三个参数为写入的密码，最后一个参数为写入标签的回调。</p>
+
+<p>以下为使用的案例：</p>
+
+<pre><code> //调用写入的方法
+        writeEpc(be, data, pwd, new WriteTagDataListenser() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(WriteEpcDataActivity.this, &quot;写入成功&quot;, Toast.LENGTH_SHORT).show();
+                handler.sendEmptyMessageDelayed(1,500);
+            }
+
+            @Override
+            public void onFailed(String msg, int errorCode) {
+                tv_reasult.setText(msg+&quot;读取结果：&quot; + errorCode);
+            }
+        });
+</code></pre>
+
+<h3>写入数据到user</h3>
+
+<p>将数据写入到epc，调用<code> writeUser(int offset, String data, String pwd, WriteTagDataListenser listenser)</code>，第一个参数为跳过的数据，第二个参数为写入的数据，第三个参数为写入的密码，最后一个参数为写入标签的回调。</p>
+
+<blockquote>
+<p>注意核实该标签是否含有User区域。</p>
+</blockquote>
+
+<p>以下为使用案例</p>
+
+<pre><code> writeUser(be, data, pwd, new WriteTagDataListenser() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(WriteUserDataActivity.this,&quot;写入成功&quot;,Toast.LENGTH_SHORT).show();
+
+                handler.sendEmptyMessageDelayed(1,500);
+            }
+
+            @Override
+            public void onFailed(String msg, int errorCode) {
+
+            }
+        });</code></pre>
+
+</body>
+</html>
+
