@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.invengo.resource.readtagchengdu">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--读取标签界面-->
+        <activity android:name=".activity.ReadTidActivity"></activity>
+
+        <!--读取标签界面-->
+        <activity android:name=".activity.MainLessActivity"></activity>
+
+        <!--读取标签user界面-->
+        <activity android:name=".activity.ReadUserActivity"></activity>
+
+        <!--读取标签EPC界面-->
+        <activity android:name=".activity.ReadEPCActivity"></activity>
+
+        <!--写入数据到epc-->
+        <activity android:name=".activity.WriteEpcDataActivity"></activity>
+
+        <!--写入数据到epc-->
+        <activity android:name=".activity.WriteUserDataActivity"></activity>
+
+        <!--设置访问密码-->
+        <activity android:name=".activity.SetAccessPwdActivity"></activity>
+
+        <!--设置访问密码-->
+        <activity android:name=".activity.WriteLockDataActivity"></activity>
+
+    </application>
+
+</manifest>

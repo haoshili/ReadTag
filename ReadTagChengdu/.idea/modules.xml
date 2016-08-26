@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ReadTagChengdu.iml" filepath="$PROJECT_DIR$/ReadTagChengdu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/readlibrary/readlibrary.iml" filepath="$PROJECT_DIR$/readlibrary/readlibrary.iml" />
+    </modules>
+  </component>
+</project>
